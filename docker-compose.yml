@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    container_name: esimquery-app
+    ports:
+      - "3000:3000"
+    # Load secrets and env from local .env file
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      # You can override PORT if needed
+      PORT: ${PORT:-3000}
+      # Optional override for API base
+      API_BASE: ${API_BASE:-https://api.esimaccess.com/api/v1/open}
+    restart: unless-stopped

@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: esimquery-proxy
+    env: node
+    plan: free
+    buildCommand: npm ci --only=production
+    startCommand: node server.js
+    runtime: node
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: API_BASE
+        value: https://api.esimaccess.com/api/v1/open
+      - key: RT_ACCESS_CODE
+        sync: false # Set this secret in Render dashboard after deploy
+      - key: CORS_ORIGIN
+        sync: false # e.g., https://your-frontend.example.com or comma-separated list
+    healthCheckPath: /health
+    routes:
+      - type: rewrite
+        source: 
+          path: /*
+        destination: /index.html
+        # Note: We serve static files from /public via Express.
+        # If you host the front end elsewhere, you can remove this route.
