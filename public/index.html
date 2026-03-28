@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>eSIM ICCID Query</title>
+  <title>eSIM Usage Query</title>
   <style>
     :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 2rem; }
@@ -13,6 +13,12 @@
     button { margin-top: 0.75rem; padding: 0.6rem 1rem; font-size: 1rem; cursor: pointer; }
     .row { margin-bottom: 1rem; }
     .status { margin-top: 0.75rem; min-height: 1.2em; }
+    .summary { margin: 1rem 0; padding: 1rem; background: rgba(0,0,0,0.05); border-radius: 0.5rem; }
+    .summary.hidden { display: none; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; }
+    .summary-item { padding: 0.75rem; background: rgba(255,255,255,0.4); border-radius: 0.5rem; }
+    .summary-label { font-size: 0.85rem; opacity: 0.75; }
+    .summary-value { margin-top: 0.25rem; font-size: 1.05rem; font-weight: 700; }
     pre { background: rgba(0,0,0,0.05); padding: 1rem; overflow: auto; }
     .error { color: #c62828; }
     .success { color: #2e7d32; }
@@ -21,20 +27,20 @@
 </head>
 <body>
   <div class="container">
-    <h1>eSIM ICCID Query</h1>
-    <p class="muted">Enter an ICCID to query the eSIM Access API securely via a proxy.</p>
+    <h1>eSIM Usage Query</h1>
+    <p class="muted">Enter an ICCID to check usage, remaining balance, validity, and profile status through the backend proxy.</p>
 
     <div class="row">
       <label for="iccid">ICCID</label>
       <input id="iccid" type="text" placeholder="e.g. 89852240400025709346" />
-      <button id="submit">Query</button>
+      <button id="submit">Check Usage</button>
       <button id="get-balance" style="margin-left: 0.5rem;">Get Balance</button>
     </div>
 
     <div id="status" class="status"></div>
 
-    <h3>Response</h3>
-    <pre id="output">(no response yet)</pre>
+    <div id="summary" class="summary hidden"></div>
+
   </div>
 
   <script src="app.js"></script>
